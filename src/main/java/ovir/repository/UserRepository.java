@@ -17,31 +17,16 @@ public interface UserRepository extends CrudRepository<User, Long> {
     <S extends User> Iterable<S> save(Iterable<S> idList);
 
     @Override
-    User findOne(Long id);
-
-    @Override
-    boolean exists(Long id);
-
-    @Override
-    Iterable<User> findAll();
-
-    @Override
-    Iterable<User> findAll(Iterable<Long> id);
-
-    @Override
-    long count();
-
-    @Override
     @PreAuthorize("authentication.principal == #id")
-    void delete(Long id);
+    void delete(@Param("id") Long id);
 
     @Override
     @PreAuthorize("authentication.principal == #user.id")
-    void delete(User user);
+    void delete(@Param("user") User user);
 
     @Override
     @RestResource(exported = false)
-    void delete(Iterable<? extends User> user);
+    void delete(Iterable<? extends User> userList);
 
     @Override
     @RestResource(exported = false)
